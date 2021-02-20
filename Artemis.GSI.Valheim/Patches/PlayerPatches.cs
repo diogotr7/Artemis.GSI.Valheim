@@ -1,5 +1,6 @@
 ﻿using Artemis.GSI.Valheim.Models;
 using HarmonyLib;
+using System.Linq;
 
 namespace Artemis.GSI.Valheim.Patches
 {
@@ -16,10 +17,8 @@ namespace Artemis.GSI.Valheim.Patches
             Player.StaminaMax = __instance.GetMaxStamina();
             Player.WeightCurrent = __instance.GetInventory().GetTotalWeight();
             Player.WeightMax = __instance.GetMaxCarryWeight();
-            Player.Biome = __instance.GetCurrentBiome();
             Player.InShelter = __instance.InShelter();
-            //__instance.GetRightItem();
-            //__instance.GetLeftItem();
+            Player.Effects = __instance.GetSEMan().GetStatusEffects().ConvertAll(se => se.name);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Artemis.GSI.Valheim.Models;
 using HarmonyLib;
+using System.Text;
 
 namespace Artemis.GSI.Valheim.Patches
 {
@@ -10,6 +11,11 @@ namespace Artemis.GSI.Valheim.Patches
         public static void Postfix(ref EnvMan __instance)
         {
             Environment.IsWet = __instance.IsWet();
+            Environment.WindAngle = __instance.m_debugWindAngle;
+            Environment.Biome = __instance.GetCurrentBiome();
+            Environment.IsCold  = __instance.IsCold();
+            Environment.IsDaylight = __instance.IsDaylight();
+            Environment.SunFog = __instance.GetSunFogColor();
         }
     }
 }

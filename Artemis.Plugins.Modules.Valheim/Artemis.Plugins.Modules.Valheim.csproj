@@ -1,12 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
     <ShouldIncludeNativeSkiaSharp>false</ShouldIncludeNativeSkiaSharp>
     <AssemblyName>Artemis.Plugins.Modules.Valheim</AssemblyName>
     <RootNamespace>Artemis.Plugins.Modules.Valheim</RootNamespace>
-	<Platforms>x64</Platforms>
-	<GenerateDependencyFile>False</GenerateDependencyFile>
-	<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+	  <Platforms>x64</Platforms>
+	  <GenerateDependencyFile>False</GenerateDependencyFile>
+	  <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

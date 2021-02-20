@@ -2,6 +2,7 @@
 using Artemis.Core.Modules;
 using Artemis.Core.Services;
 using Artemis.Plugins.Modules.Valheim.DataModels;
+using Newtonsoft.Json;
 using SkiaSharp;
 
 namespace Artemis.Plugins.Modules.Valheim
