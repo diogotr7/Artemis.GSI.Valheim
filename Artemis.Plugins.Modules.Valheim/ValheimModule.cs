@@ -19,7 +19,7 @@ namespace Artemis.Plugins.Modules.Valheim
             DisplayName = "Valheim";
             DisplayIcon = "Valheim.svg";
             DefaultPriorityCategory = ModulePriorityCategory.Application;
-            ActivationRequirements.Add(new ProcessActivationRequirement("Valheim.exe"));
+            ActivationRequirements.Add(new ProcessActivationRequirement("valheim"));
 
             _webServerService.AddJsonEndPoint<PlayerData>(this, "player", p => DataModel.Player = p);
             _webServerService.AddJsonEndPoint<Enviroment>(this, "environment", e => DataModel.Environment = e);
