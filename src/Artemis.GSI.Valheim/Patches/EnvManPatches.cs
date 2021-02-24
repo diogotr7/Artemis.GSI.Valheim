@@ -15,6 +15,7 @@ namespace Artemis.GSI.Valheim.Patches
             Environment.IsCold = __instance.IsCold();
             Environment.IsDaylight = __instance.IsDaylight();
             Environment.SunFog = __instance.GetSunFogColor();
+            var env = __instance.GetCurrentEnvironment();
         }
     }
 }
