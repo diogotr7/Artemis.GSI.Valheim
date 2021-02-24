@@ -1,6 +1,5 @@
 ﻿using Artemis.GSI.Valheim.Models;
 using HarmonyLib;
-using System.Linq;
 
 namespace Artemis.GSI.Valheim.Patches
 {

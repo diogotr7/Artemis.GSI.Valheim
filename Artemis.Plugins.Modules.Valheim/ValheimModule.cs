@@ -1,8 +1,6 @@
-﻿using Artemis.Core;
-using Artemis.Core.Modules;
+﻿using Artemis.Core.Modules;
 using Artemis.Core.Services;
 using Artemis.Plugins.Modules.Valheim.DataModels;
-using Newtonsoft.Json;
 using SkiaSharp;
 
 namespace Artemis.Plugins.Modules.Valheim
@@ -19,8 +17,9 @@ namespace Artemis.Plugins.Modules.Valheim
         public override void Enable()
         {
             DisplayName = "Valheim";
-            DisplayIcon = "ToyBrickPlus";
+            DisplayIcon = "Valheim.svg";
             DefaultPriorityCategory = ModulePriorityCategory.Application;
+            ActivationRequirements.Add(new ProcessActivationRequirement("Valheim.exe"));
 
             _webServerService.AddJsonEndPoint<PlayerData>(this, "player", p => DataModel.Player = p);
             _webServerService.AddJsonEndPoint<Enviroment>(this, "environment", e => DataModel.Environment = e);
@@ -42,7 +41,7 @@ namespace Artemis.Plugins.Modules.Valheim
         {
         }
 
-        public override void Render(double deltaTime, ArtemisSurface surface, SKCanvas canvas, SKImageInfo canvasInfo)
+        public override void Render(double deltaTime, SKCanvas canvas, SKImageInfo canvasInfo)
         {
         }
     }

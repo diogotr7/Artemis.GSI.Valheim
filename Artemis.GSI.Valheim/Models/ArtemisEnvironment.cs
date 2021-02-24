@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System;
-using System.Text;
+﻿using System.Text;
+using UnityEngine;
 
 namespace Artemis.GSI.Valheim.Models
 {
@@ -15,7 +14,7 @@ namespace Artemis.GSI.Valheim.Models
 
         public string ToJson()
         {
-            var builder = new StringBuilder();
+            StringBuilder builder = new StringBuilder();
             builder.Append('{');
 
             builder.AppendTypeAndValue(nameof(IsWet), IsWet);

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
-using UnityEngine;
 
 namespace Artemis.GSI.Valheim.Models
 {
@@ -19,7 +16,7 @@ namespace Artemis.GSI.Valheim.Models
 
         internal string ToJson()
         {
-            var builder = new StringBuilder();
+            StringBuilder builder = new StringBuilder();
             builder.Append('{');
 
             builder.AppendTypeAndValue(nameof(HealthCurrent), HealthCurrent);

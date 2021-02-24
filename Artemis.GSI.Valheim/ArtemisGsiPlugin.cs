@@ -1,19 +1,10 @@
 ﻿using Artemis.GSI.Valheim.Patches;
 using BepInEx;
 using HarmonyLib;
-using System;
+using System.IO;
 using System.Timers;
 using UnityEngine;
 using UnityEngine.Networking;
-using System.IO;
-using System.Text;
-using System.Runtime.Serialization;
-using System.Reflection;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Globalization;
-using System.Text.RegularExpressions;
 
 namespace Artemis.GSI.Valheim
 {
@@ -27,7 +18,7 @@ namespace Artemis.GSI.Valheim
         private string playerEndpoint;
         private string envEndpoint;
 
-        void Awake()
+        private void Awake()
         {
             if (!File.Exists(CONFIG_PATH))
             {
@@ -37,7 +28,7 @@ namespace Artemis.GSI.Valheim
 
             try
             {
-                var baseUri = File.ReadAllText(CONFIG_PATH);
+                string baseUri = File.ReadAllText(CONFIG_PATH);
                 uri = $"{baseUri}plugins/{PLUGIN_GUID}";
                 playerEndpoint = $"{uri}/player";
                 envEndpoint = $"{uri}/environment";
@@ -52,7 +43,7 @@ namespace Artemis.GSI.Valheim
             timer = new Timer(100);
             timer.Elapsed += OnTimerElapsed;
 
-            var harmony = new Harmony("com.artemis.gsi");
+            Harmony harmony = new Harmony("com.artemis.gsi");
             harmony.PatchAll();
 
             Logger.LogInfo(PlayerPatches.Player.ToJson());
@@ -61,7 +52,7 @@ namespace Artemis.GSI.Valheim
             timer.Start();
         }
 
-        void OnApplicationQuit()
+        private void OnApplicationQuit()
         {
             timer?.Stop();
         }
@@ -76,7 +67,7 @@ namespace Artemis.GSI.Valheim
         {
             try
             {
-                var request = UnityWebRequest.Put(uri, json);
+                UnityWebRequest request = UnityWebRequest.Put(uri, json);
                 request.method = "POST";
                 request.SetRequestHeader("Content-Type", "application/json");
                 request.SendWebRequest();
