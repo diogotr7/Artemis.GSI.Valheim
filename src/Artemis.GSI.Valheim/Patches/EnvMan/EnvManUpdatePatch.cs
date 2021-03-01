@@ -4,7 +4,7 @@ using HarmonyLib;
 namespace Artemis.GSI.Valheim.Patches
 {
     [HarmonyPatch(typeof(EnvMan), "Update")]
-    public static class EnvManPatches
+    public static class EnvManUpdatePatch
     {
         public static readonly ArtemisEnvironment Environment = new ArtemisEnvironment();
         public static void Postfix(ref EnvMan __instance)
@@ -15,7 +15,6 @@ namespace Artemis.GSI.Valheim.Patches
             Environment.IsCold = __instance.IsCold();
             Environment.IsDaylight = __instance.IsDaylight();
             Environment.SunFog = __instance.GetSunFogColor();
-            var env = __instance.GetCurrentEnvironment();
         }
     }
 }

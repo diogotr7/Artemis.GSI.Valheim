@@ -21,8 +21,26 @@ namespace Artemis.Plugins.Modules.Valheim
             DefaultPriorityCategory = ModulePriorityCategory.Application;
             ActivationRequirements.Add(new ProcessActivationRequirement("valheim"));
 
-            _webServerService.AddJsonEndPoint<PlayerData>(this, "player", p => DataModel.Player = p);
-            _webServerService.AddJsonEndPoint<Enviroment>(this, "environment", e => DataModel.Environment = e);
+            _webServerService.AddJsonEndPoint<PlayerData>(this, "player", p =>
+            {
+                DataModel.Player = p;
+            });
+            _webServerService.AddJsonEndPoint<Enviroment>(this, "environment", e =>
+            {
+                DataModel.Environment = e;
+            });
+            _webServerService.AddStringEndPoint(this, "teleport", _ =>
+            {
+                DataModel.Teleport.Trigger();
+            });
+            _webServerService.AddJsonEndPoint<SkillLevelUpEventArgs>(this, "levelUp", e =>
+            {
+                DataModel.SkillLevelUp.Trigger(e);
+            });
+            _webServerService.AddStringEndPoint(this, "forsakenActivated", _ =>
+            {
+                DataModel.ForsakenActivated.Trigger();
+            });
         }
 
         public override void Disable()

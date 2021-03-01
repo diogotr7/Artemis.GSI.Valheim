@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Artemis.GSI.Valheim.Models
 {
-    public class ArtemisPlayer
+    public class ArtemisPlayer : ISerializable
     {
         public float HealthCurrent;
         public float HealthMax;
@@ -13,8 +13,9 @@ namespace Artemis.GSI.Valheim.Models
         public float WeightMax;
         public bool InShelter;
         public List<string> Effects = new List<string>();
+        public string ForsakenPower;
 
-        internal string ToJson()
+        public string ToJson()
         {
             StringBuilder builder = new StringBuilder();
             builder.Append('{');
@@ -34,6 +35,8 @@ namespace Artemis.GSI.Valheim.Models
             builder.AppendTypeAndValue(nameof(InShelter), InShelter);
             builder.Append(',');
             builder.AppendTypeAndValue(nameof(Effects), Effects);
+            builder.Append(',');
+            builder.AppendTypeAndValue(nameof(ForsakenPower), ForsakenPower);
 
             builder.Append('}');
             return builder.ToString();

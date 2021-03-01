@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Artemis.GSI.Valheim.Models
 {
-    public class ArtemisEnvironment
+    public class ArtemisEnvironment : ISerializable
     {
         public bool IsWet;
         public bool IsCold;

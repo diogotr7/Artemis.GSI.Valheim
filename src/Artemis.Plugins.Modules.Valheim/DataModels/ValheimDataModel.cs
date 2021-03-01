@@ -1,4 +1,5 @@
-﻿using Artemis.Core.DataModelExpansions;
+﻿using Artemis.Core;
+using Artemis.Core.DataModelExpansions;
 using SkiaSharp;
 using System.Collections.Generic;
 
@@ -8,6 +9,16 @@ namespace Artemis.Plugins.Modules.Valheim.DataModels
     {
         public PlayerData Player { get; set; } = new PlayerData();
         public Enviroment Environment { get; set; } = new Enviroment();
+
+        public DataModelEvent Teleport { get; } = new DataModelEvent();
+        public DataModelEvent<SkillLevelUpEventArgs> SkillLevelUp { get; } = new DataModelEvent<SkillLevelUpEventArgs>();
+        public DataModelEvent ForsakenActivated { get; } = new DataModelEvent();
+    }
+
+    public class SkillLevelUpEventArgs : DataModelEventArgs
+    {
+        public SkillType SkillType { get; set; }
+        public float Level { get; set; }
     }
 
     public enum Biome
@@ -35,6 +46,7 @@ namespace Artemis.Plugins.Modules.Valheim.DataModels
         public float WeightMax { get; set; }
         public bool InShelter { get; set; }
         public List<string> Effects { get; set; } = new List<string>();
+        public string ForsakenPower { get; set; }
     }
 
     public class Enviroment
@@ -56,5 +68,28 @@ namespace Artemis.Plugins.Modules.Valheim.DataModels
         public byte Red;
         public byte Green;
         public byte Blue;
+    }
+
+    public enum SkillType
+    {
+        None = 0,
+        Swords = 1,
+        Knives = 2,
+        Clubs = 3,
+        Polearms = 4,
+        Spears = 5,
+        Blocking = 6,
+        Axes = 7,
+        Bows = 8,
+        FireMagic = 9,
+        FrostMagic = 10,
+        Unarmed = 11,
+        Pickaxes = 12,
+        WoodCutting = 13,
+        Jump = 100,
+        Sneak = 101,
+        Run = 102,
+        Swim = 103,
+        All = 999
     }
 }
