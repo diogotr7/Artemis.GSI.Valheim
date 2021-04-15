@@ -1,5 +1,7 @@
 ﻿using Artemis.GSI.Valheim.Models;
 using HarmonyLib;
+using UnityEngine;
+using Unity;
 
 namespace Artemis.GSI.Valheim.Patches
 {
@@ -10,7 +12,11 @@ namespace Artemis.GSI.Valheim.Patches
         public static void Postfix(ref EnvMan __instance)
         {
             Environment.IsWet = __instance.IsWet();
-            Environment.WindAngle = __instance.m_debugWindAngle;
+
+            Vector3 vecDir = __instance.GetWindDir();
+            float rad = Mathf.Atan2(vecDir.x, vecDir.z);
+            Environment.WindAngle = (rad >= 0 ? rad : (2 * Mathf.PI + rad)) * 360 / (2 * Mathf.PI);
+
             Environment.Biome = __instance.GetCurrentBiome();
             Environment.IsCold = __instance.IsCold();
             Environment.IsDaylight = __instance.IsDaylight();
