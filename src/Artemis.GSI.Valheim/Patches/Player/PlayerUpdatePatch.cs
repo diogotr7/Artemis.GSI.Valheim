@@ -11,15 +11,18 @@ namespace Artemis.GSI.Valheim.Patches
 
         public static void Postfix(ref Player __instance)
         {
-            Player.HealthCurrent = __instance.GetHealth();
-            Player.HealthMax = __instance.GetMaxHealth();
-            Player.StaminaCurrent = __instance.GetStamina();
-            Player.StaminaMax = __instance.GetMaxStamina();
-            Player.WeightCurrent = __instance.GetInventory().GetTotalWeight();
-            Player.WeightMax = __instance.GetMaxCarryWeight();
-            Player.InShelter = __instance.InShelter();
-            Player.Effects = __instance.GetSEMan().GetStatusEffects().ConvertAll(se => se.name);
-            Player.ForsakenPower = __instance.GetGuardianPowerName();
+            if (__instance.IsOwner())
+            {
+                Player.HealthCurrent = __instance.GetHealth();
+                Player.HealthMax = __instance.GetMaxHealth();
+                Player.StaminaCurrent = __instance.GetStamina();
+                Player.StaminaMax = __instance.GetMaxStamina();
+                Player.WeightCurrent = __instance.GetInventory().GetTotalWeight();
+                Player.WeightMax = __instance.GetMaxCarryWeight();
+                Player.InShelter = __instance.InShelter();
+                Player.Effects = __instance.GetSEMan().GetStatusEffects().ConvertAll(se => se.name);
+                Player.ForsakenPower = __instance.GetGuardianPowerName();
+            }
         }
     }
 
