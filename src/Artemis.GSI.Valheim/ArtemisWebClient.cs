@@ -25,20 +25,37 @@ namespace Artemis.GSI.Valheim
             _logger = logger;
 
             if (!File.Exists(CONFIG_PATH))
-                throw new FileNotFoundException("Artemis webserver file not found");
+                throw new FileNotFoundException("Artemis: Webserver file not found");
 
+            string uri;
             try
             {
-                string baseUri = File.ReadAllText(CONFIG_PATH);
-                _baseUri = $"{baseUri.Replace("*", "localhost")}plugins/{PLUGIN_GUID}";
-
-                _logger.LogInfo($"Found artemis web api uri: {_baseUri}");
+                uri = File.ReadAllText(CONFIG_PATH);
             }
             catch (IOException)
             {
                 _logger.LogError("Artemis: Error reading webserver config file");
                 throw;
             }
+
+            _logger.LogInfo($"Found artemis web api uri: {uri}");
+
+            var request = UnityWebRequest.Get($"{uri}plugins");
+            try
+            {
+                request.SendWithTimeout(TimeSpan.FromMilliseconds(500));
+            }
+            catch(Exception e)
+            {
+                _logger.LogError("Artemis: Failed connecting to webserver");
+                _logger.LogError(e);
+
+                throw new Exception("Failed to connect to Artemis, exiting...");
+            }
+
+            _baseUri = $"{uri}plugins/{PLUGIN_GUID}";
+
+            _logger.LogInfo("Connected to Artemis, starting timer.");
 
             timer = new Timer(100);
             timer.Elapsed += OnTimerElapsed;
@@ -60,10 +77,13 @@ namespace Artemis.GSI.Valheim
                 UnityWebRequest request = UnityWebRequest.Put($"{_baseUri}/{endpoint}", json);
                 request.method = "POST";
                 request.SetRequestHeader("Content-Type", "application/json");
-                request.SendWebRequest();
+                request.SendWithTimeout(TimeSpan.FromMilliseconds(100));
             }
-            catch(Exception e) {
+            catch (Exception e)
+            {
                 _logger.LogError(e);
+                _logger.LogError("Artemis: Stopping timer");
+                StopTimer();
             }
         }
 

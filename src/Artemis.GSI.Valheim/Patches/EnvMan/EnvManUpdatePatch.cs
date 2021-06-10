@@ -2,6 +2,7 @@
 using HarmonyLib;
 using UnityEngine;
 using Unity;
+using System;
 
 namespace Artemis.GSI.Valheim.Patches
 {
@@ -15,7 +16,7 @@ namespace Artemis.GSI.Valheim.Patches
 
             Vector3 vecDir = __instance.GetWindDir();
             float rad = Mathf.Atan2(vecDir.x, vecDir.z);
-            Environment.WindAngle = (rad >= 0 ? rad : (2 * Mathf.PI + rad)) * 360 / (2 * Mathf.PI);
+            Environment.WindAngle = (rad >= 0 ? rad : (2 * (float)Math.PI + rad)) * 360 / (2 * (float)Math.PI);
 
             Environment.Biome = __instance.GetCurrentBiome();
             Environment.IsCold = __instance.IsCold();
